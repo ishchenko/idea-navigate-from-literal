@@ -1,0 +1,35 @@
+<idea-plugin version="2">
+
+    <id>navigate-from-literal</id>
+    <name>Navigate From Literal</name>
+    <version>1.0</version>
+
+    <vendor email="max.ishchenko@gmail.com" url="http://github.com/ishchenko/idea-navigate-from-literal">Max Ishchenko</vendor>
+
+    <description><![CDATA[
+
+        Enables navigation from any string literal to a file by name.
+        I.e. Ctrl+B/Ctrl+Click at literal "myFile.txt" will try to navigate to a file named "myFile.txt",
+        that is located in any project directory. For a literal like "some/path/to/file.txt" it will omit
+        directories and try to resolve "file.txt" in all project directories. Back references
+        (i.e. from files to literals) are ignored, this is by design.
+
+    ]]>
+    </description>
+
+    <change-notes><![CDATA[
+      <ul>1.0
+        <li>Navigation from any literals, computing simple concatenations</li>
+      </ul>
+      ]]>
+    </change-notes>
+
+    <idea-version since-build="120.0"/>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <psi.referenceContributor implementation="net.ishchenko.idea.navigatefromliteral.FileReferenceContributor"/>
+    </extensions>
+
+</idea-plugin>
