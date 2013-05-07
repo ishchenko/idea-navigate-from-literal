@@ -84,11 +84,11 @@ public class OneWayPsiFileReference extends PsiPolyVariantReferenceBase<PsiLiter
         String cleanFileName = value;
         int slashPosition = cleanFileName.lastIndexOf('/');
         if (slashPosition >= 0) {
-            cleanFileName = cleanFileName.substring(slashPosition);
+            cleanFileName = cleanFileName.substring(slashPosition + 1);
         } else {
             int backSlashPosition = cleanFileName.lastIndexOf('\\');
             if (backSlashPosition >= 0) {
-                cleanFileName = cleanFileName.substring(backSlashPosition);
+                cleanFileName = cleanFileName.substring(backSlashPosition + 1);
             }
         }
         PsiFile[] files = FilenameIndex.getFilesByName(getElement().getProject(), cleanFileName, GlobalSearchScope.projectScope(getElement().getProject()));
