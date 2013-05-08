@@ -2,8 +2,6 @@ package net.ishchenko.idea.navigatefromliteral;
 
 import com.intellij.psi.*;
 import com.intellij.psi.impl.JavaConstantExpressionEvaluator;
-import com.intellij.psi.search.FilenameIndex;
-import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,17 +11,17 @@ import org.jetbrains.annotations.NotNull;
  * Date: 06.05.13
  * Time: 20:22
  */
-public class OneWayPsiFileReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
+public class OneWayPsiFileFromPsiLiteralReference extends OneWayPsiFileReferenceBase<PsiLiteral> {
 
-    public OneWayPsiFileReference(@NotNull PsiLiteral element) {
+    public OneWayPsiFileFromPsiLiteralReference(@NotNull PsiLiteral element) {
         super(element);
     }
 
     @NotNull
     @Override
-    public ResolveResult[] multiResolve(boolean incompleteCode) {
+    protected String computeStringValue() {
 
-        String computedStringValue = null;
+        String computedStringValue = "";
 
         PsiPolyadicExpression parentExpression = PsiTreeUtil.getParentOfType(getElement(), PsiPolyadicExpression.class);
 
@@ -61,42 +59,9 @@ public class OneWayPsiFileReference extends PsiPolyVariantReferenceBase<PsiLiter
 
         }
 
-        if (computedStringValue != null) {
-            return getResolveResults(computedStringValue);
-        } else {
-            return ResolveResult.EMPTY_ARRAY;
-        }
+        return computedStringValue;
 
     }
 
-    @NotNull
-    @Override
-    public Object[] getVariants() {
-        return EMPTY_ARRAY;
-    }
-
-    @Override
-    public boolean isReferenceTo(PsiElement element) {
-        return false;
-    }
-
-    private ResolveResult[] getResolveResults(String value) {
-        String cleanFileName = value;
-        int slashPosition = cleanFileName.lastIndexOf('/');
-        if (slashPosition >= 0) {
-            cleanFileName = cleanFileName.substring(slashPosition + 1);
-        } else {
-            int backSlashPosition = cleanFileName.lastIndexOf('\\');
-            if (backSlashPosition >= 0) {
-                cleanFileName = cleanFileName.substring(backSlashPosition + 1);
-            }
-        }
-        PsiFile[] files = FilenameIndex.getFilesByName(getElement().getProject(), cleanFileName, GlobalSearchScope.projectScope(getElement().getProject()));
-        ResolveResult[] result = new ResolveResult[files.length];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = new PsiElementResolveResult(files[i]);
-        }
-        return result;
-    }
 
 }
