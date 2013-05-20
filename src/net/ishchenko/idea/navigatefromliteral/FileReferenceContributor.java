@@ -4,6 +4,7 @@ import com.intellij.patterns.PsiJavaPatterns;
 import com.intellij.patterns.XmlPatterns;
 import com.intellij.psi.*;
 import com.intellij.psi.xml.XmlAttributeValue;
+import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.ProcessingContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,6 +29,13 @@ public class FileReferenceContributor extends PsiReferenceContributor {
             @Override
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                 return new PsiReference[]{new OneWayPsiFileFromXmlAttributeValueReference((XmlAttributeValue) element)};
+            }
+        });
+        registrar.registerReferenceProvider(XmlPatterns.xmlTag(), new PsiReferenceProvider() {
+            @NotNull
+            @Override
+            public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
+                return new PsiReference[]{new OneWayPsiFileFromXmlTagReference((XmlTag) element)};
             }
         });
     }
