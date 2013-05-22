@@ -23,20 +23,20 @@ public class FileReferenceContributor extends PsiReferenceContributor {
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                 return new PsiReference[]{new OneWayPsiFileFromPsiLiteralReference((PsiLiteral) element)};
             }
-        });
+        }, PsiReferenceRegistrar.LOWER_PRIORITY);
         registrar.registerReferenceProvider(XmlPatterns.xmlAttributeValue(), new PsiReferenceProvider() {
             @NotNull
             @Override
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                 return new PsiReference[]{new OneWayPsiFileFromXmlAttributeValueReference((XmlAttributeValue) element)};
             }
-        });
+        }, PsiReferenceRegistrar.LOWER_PRIORITY);
         registrar.registerReferenceProvider(XmlPatterns.xmlTag(), new PsiReferenceProvider() {
             @NotNull
             @Override
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                 return new PsiReference[]{new OneWayPsiFileFromXmlTagReference((XmlTag) element)};
             }
-        });
+        }, PsiReferenceRegistrar.LOWER_PRIORITY);
     }
 }
