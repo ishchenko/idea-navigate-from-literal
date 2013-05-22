@@ -23,7 +23,7 @@ public class FileReferenceContributor extends PsiReferenceContributor {
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                 return new PsiReference[]{new OneWayPsiFileFromPsiLiteralReference((PsiLiteral) element)};
             }
-        }, PsiReferenceRegistrar.LOWER_PRIORITY);
+        });
         registrar.registerReferenceProvider(XmlPatterns.xmlAttributeValue(), new PsiReferenceProvider() {
             @NotNull
             @Override
