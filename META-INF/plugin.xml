@@ -2,7 +2,7 @@
 
     <id>navigate-from-literal</id>
     <name>Navigate From Literal</name>
-    <version>1.4</version>
+    <version>1.5</version>
 
     <vendor email="max.ishchenko@gmail.com" url="http://github.com/ishchenko/idea-navigate-from-literal">Max Ishchenko</vendor>
 
@@ -18,6 +18,9 @@
     </description>
 
     <change-notes><![CDATA[
+      <ul>1.5
+        <li>Fixed StringIndexOutOfBoundsException issue</li>
+      </ul>
       <ul>1.4
         <li>Support for literals in javascript, php and python</li>
       </ul>
