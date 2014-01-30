@@ -2,7 +2,7 @@
 
     <id>navigate-from-literal</id>
     <name>Navigate From Literal</name>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.6</version>
 
     <vendor email="max.ishchenko@gmail.com" url="http://github.com/ishchenko/idea-navigate-from-literal">Max Ishchenko</vendor>
 
@@ -19,7 +19,8 @@
 
     <change-notes><![CDATA[
       <ul>1.6
-
+        <li>Case insensitive search</li>
+        <li>File extension not required, files with matching FileType shown first</li>
       </ul>
       <ul>1.5
         <li>Fixed StringIndexOutOfBoundsException issue</li>
