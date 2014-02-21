@@ -19,7 +19,7 @@ public class OneWayPsiFileReference extends OneWayPsiFileReferenceBase<PsiElemen
     @Override
     protected String computeStringValue() {
         String text = getElement().getText();
-        if (text.length() >= 2 && text.startsWith("\"") && text.endsWith("\"") || text.startsWith("'") && text.endsWith("'")) {
+        if (text.length() >= 2 && (text.startsWith("\"") && text.endsWith("\"") || text.startsWith("'") && text.endsWith("'"))) {
             return text.substring(1, text.length() - 1);
         } else {
             //Some strange literal, has no quotes. Try anyway
