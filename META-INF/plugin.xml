@@ -2,7 +2,7 @@
 
     <id>navigate-from-literal</id>
     <name>Navigate From Literal</name>
-    <version>1.7</version>
+    <version>1.8-SNAPSHOT</version>
 
     <vendor email="max.ishchenko@gmail.com" url="http://github.com/ishchenko/idea-navigate-from-literal">Max Ishchenko</vendor>
 
