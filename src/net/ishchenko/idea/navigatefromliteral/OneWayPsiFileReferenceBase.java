@@ -39,9 +39,17 @@ public abstract class OneWayPsiFileReferenceBase<T extends PsiElement> extends P
                 cleanFileName = cleanFileName.substring(backSlashPosition + 1);
             }
         }
+        int dotPosition = cleanFileName.lastIndexOf('.');
+        String cleanFileNameWithoutExtension;
+        if (dotPosition > 0) { //strict equality to treat filenames that start with dot as filenames without extension
+            cleanFileNameWithoutExtension = cleanFileName.substring(0, dotPosition);
+        } else {
+            cleanFileNameWithoutExtension = cleanFileName;
+        }
         Project project = getElement().getProject();
         ProjectFileIndex fileIndex = ProjectRootManager.getInstance(project).getFileIndex();
         final String finalCleanFileName = cleanFileName;
+        final String finalCleanFileNameWithoutExtension = cleanFileNameWithoutExtension;
         final Set<Pair<Integer, VirtualFile>> sortedResults = new TreeSet<Pair<Integer, VirtualFile>>(new Comparator<Pair<Integer, VirtualFile>>() {
             @Override
             public int compare(Pair<Integer, VirtualFile> o1, Pair<Integer, VirtualFile> o2) {
@@ -69,7 +77,8 @@ public abstract class OneWayPsiFileReferenceBase<T extends PsiElement> extends P
                 if (!fileOrDir.isDirectory()) {
                     if (fileOrDir.getName().equalsIgnoreCase(finalCleanFileName)) {
                         sortedResults.add(new Pair<Integer, VirtualFile>(10, fileOrDir));
-                    } else if (fileOrDir.getNameWithoutExtension().equalsIgnoreCase(finalCleanFileName)) {
+                    } else if (fileOrDir.getNameWithoutExtension().equalsIgnoreCase(finalCleanFileName)
+                            || fileOrDir.getNameWithoutExtension().equalsIgnoreCase(finalCleanFileNameWithoutExtension)) {
                         if (fileOrDir.getFileType().equals(getElement().getContainingFile().getFileType())) {
                             sortedResults.add(new Pair<Integer, VirtualFile>(20, fileOrDir));
                         } else {
